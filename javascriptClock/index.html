@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Clock</title>
+    <style>
+      body {
+        padding: 0;
+        margin: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        background-color: rgb(45, 0, 49);
+      }
+      .clock {
+        position: relative;
+        padding: 0;
+        width: 400px;
+        height: 400px;
+        border: 4px solid white;
+        border-radius: 50%;
+        box-shadow: inset 0 5px 5px 0 rgba(0, 0, 0, 0.75),
+          0 -5px 5px 0 rgba(255, 255, 255, 0.75),
+          inset 0 -5px 5px 0 rgba(255, 255, 255, 0.75),
+          0 5px 5px 0 rgba(0, 0, 0, 0.75);
+      }
+      .clock::after {
+        position: absolute;
+        content: "";
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        height: 10px;
+        width: 10px;
+        border-radius: 50%;
+        background: white;
+        z-index: 100;
+      }
+      .stick {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translateX(-100%) translateY(-50%);
+        height: 6px;
+        background-color: black;
+        border-radius: 5px;
+        transform-origin: left center;
+        transition: transform 0.05s cubic-bezier(0.1, 2.7, 0.58, 1);
+      }
+      .hour {
+        width: 25%;
+        background-color: rgb(255, 102, 0);
+        z-index: 3;
+      }
+      .minute {
+        width: 33%;
+        z-index: 2;
+      }
+      .second {
+        width: 43%;
+        height: 1px;
+        z-index: 1;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="clock">
+      <div class="stick hour"></div>
+      <div class="stick minute"></div>
+      <div class="stick second"></div>
+    </div>
+
+    <script>
+      const secStick = document.querySelector(".second");
+      const minStick = document.querySelector(".minute");
+      const hourStick = document.querySelector(".hour");
+      const tiktak = () => {
+        const now = new Date();
+        const sec = now.getSeconds();
+        const secDegrees = (sec / 60) * 360 - 90;
+        secStick.style.transform = `rotate(${secDegrees}deg)`;
+        const min = now.getMinutes();
+        const minDegrees = (min / 60) * 360 - 90;
+        minStick.style.transform = `rotate(${minDegrees}deg)`;
+        const hour = now.getHours();
+        const hourDegrees = (hour / 12) * 360 - 90;
+        hourStick.style.transform = `rotate(${hourDegrees}deg)`;
+      };
+
+      setInterval(() => {
+        tiktak();
+      }, 1000);
+    </script>
+  </body>
+</html>
