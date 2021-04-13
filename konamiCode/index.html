@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Key Detection</title>
+    <script type="text/javascript" src="https://www.cornify.com/js/cornify.js"></script>
+</head>
+
+<body>
+
+
+    <h1>If you type ckmrsn you will see something :D</h1>
+    <script>
+        const pressed = [];
+        const secretCode = 'ckmrsn';
+
+        window.addEventListener('keyup', (e) => {
+            console.log(e.key);
+            pressed.push(e.key);
+            pressed.splice(-secretCode.length - 1, pressed.length - secretCode.length);
+            if (pressed.join('').includes(secretCode)) {
+                console.log('You did it dude!');
+                cornify_add();
+            }
+            console.log(pressed);
+        });
+    </script>
+</body>
+
+</html>
